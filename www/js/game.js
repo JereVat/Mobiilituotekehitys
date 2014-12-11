@@ -82,7 +82,7 @@ game.prototype.setup = function()
     this.create_box2d_world();
     
     //lower slab
-    this.game_objects.push(new wall({x : w/2 , y: 1, width : 100, height:1, game : this}));
+    this.game_objects.push(new wall({x : w/2 , y: 0.5, width : 100, height: 1, game : this}));
     
     //the player
     this.player = new player({x : w/2, y: h/2 , game : this});
@@ -554,6 +554,8 @@ wall.prototype.draw = function()
     var width = 1.0 * scale;
     var height = 1.0 * scale;
     
+
+    /*
     for(var i = x1 ; i < x2; i++)
     {
         for(var j = y1; j > y2; j--)
@@ -562,5 +564,5 @@ wall.prototype.draw = function()
             var c = this.game.get_offset(new b2Vec2(i,j));
             this.game.ctx.drawImage(wall.img , c.x * scale, c.y * scale, width, height);
         }
-    }
+    } */
 }
