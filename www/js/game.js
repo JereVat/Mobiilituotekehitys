@@ -142,10 +142,6 @@ game.prototype.redraw_world = function()
     var img = img_res('moon.png');
     this.ctx.drawImage(img, 0 , 0 , this.canvas_width, this.canvas_height);
     
-    
-    
-    write_text({x : 25 , y : 25 , font : 'bold 15px arial' , color : '#fff' , text : 'Paskaa ' + this.points , ctx : this.ctx})
-    
     //Draw each object one by one , the tiles , the cars , the other objects lying here and there
     for(var i in this.game_objects)
     {
@@ -160,10 +156,10 @@ game.prototype.tick = function(cnt)
         this.time_elapsed += 1;
         
         //create a random fruit on top
-        if(this.time_elapsed % 50 == 0)
+        if(this.time_elapsed % 10 == 0)
         {
-            var xc = Math.random() * 8 + this.screen_width/2 - 4;
-            var yc = this.screen_height/2 + 2.5;
+            var xc = Math.random() * 30 + this.screen_width/2 - 10 ;
+            var yc = this.screen_height/2 + 3.5;
             
             this.game_objects.push(new apple({x : xc ,y : yc,game:this}));
         }
@@ -321,10 +317,10 @@ function apple(options)
     
     this.game = options.game;
     
-    var linear_damping = 10 - (parseInt(this.game.points / 10) + 1)*0.5;
+    var linear_damping = 12 - (parseInt(this.game.points / 10) + 1)*0.5;
     
     var info = { 
-        'density' : 10 ,
+        'density' : 50 ,
         'linearDamping' : linear_damping ,
         'fixedRotation' : true ,
         'userData' : this ,
@@ -335,7 +331,7 @@ function apple(options)
     this.body = body;
 }
 
-apple.img = img_res('apple.png');
+apple.img = img_res('hiutale.png');
 
 apple.prototype.draw = function()
 {
@@ -356,7 +352,7 @@ apple.prototype.draw = function()
     var height = this.height * scale;
     
     this.game.ctx.translate(sx, sy);
-    this.game.ctx.drawImage(apple.img , -width / 2, -height / 2, width, height);
+    this.game.ctx.drawImage(apple.img , -width / 3, -height / 3, width, height);
     this.game.ctx.translate(-sx, -sy);
 }
 
@@ -468,7 +464,6 @@ player.prototype.add_velocity = function(vel)
     b.SetLinearVelocity(v);
 }
 
-var hero = player.img;
 player.img = img_res('actionmiddle.png');
 
 player.prototype.draw = function()
