@@ -370,13 +370,7 @@ apple.prototype.tick = function()
 //Destroy the apple when player eats it
 apple.prototype.destroy = function()
 {
-    if(this.body == null)
-    {
-        return;
-    }
-    this.body.GetWorld().DestroyBody( this.body );
-    this.body = null;
-    this.dead = true;
+  
 }
 
 /*
