@@ -62,16 +62,39 @@ body {
  }
  #deviceready li{
     padding:11px;
-text-align: center;
+    text-align: center;
  }
 
  #deviceready img{
     position: relative;
  }
  #pp{
-    margin-top: -400px;
-    color:black;
-    margin-left: 200px;
+    margin-top: -465px;
+    background-color:#162CA8;
+    border:9px solid #9C5521;
+    width:200px;
+    height:250px;
+    margin-left: 250px;
+    font-family: 'Press Start 2P', cursive;
+ }
+ #pp h2{
+    color:white;
+    text-align: center;
+     text-shadow: 2px 2px black;
+ }
+ #pp ul {
+    list-style: none;
+    padding-top: 20px;
+ }
+ #pp li {
+
+    color:white;
+    text-align: center;
+    border:3px solid #162CA8;
+    width:120px;
+    height:30px;
+    background-color: #9C5521;
+    padding-top: 15px;
  }
  .navi {
     text-align: center;
