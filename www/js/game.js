@@ -1,13 +1,19 @@
-/*
-    Fruit Hunter Game
-    Made using Box2d and Jquery on the Html5 Canvas element
-    
-    Author : Silver Moon
-    m00n.silv3r@gmail.com
-    
-    Enjoy!!
-*/
-
+$(function() {      
+      //Enable swiping...
+      $("#canvas").swipe( {
+        swipeStatus:function(event, phase, direction, distance)
+        {
+          var str = "";
+          if (phase=="move")
+            str="You have moved " + distance +" pixels, past 200 and the handler will fire";
+          if (phase=="end")
+            str="Handler fired, you swiped " + direction;
+          $(this).text(str);
+        },
+        triggerOnTouchEnd:false,
+        threshold:200
+      });
+    });
 //Global game object
 var global_game = null;
 
@@ -462,6 +468,7 @@ player.prototype.add_velocity = function(vel)
     b.SetLinearVelocity(v);
 }
 
+var hero = player.img;
 player.img = img_res('actionmiddle.png');
 
 player.prototype.draw = function()
@@ -565,4 +572,6 @@ wall.prototype.draw = function()
             this.game.ctx.drawImage(wall.img , c.x * scale, c.y * scale, width, height);
         }
     } */
+
 }
+

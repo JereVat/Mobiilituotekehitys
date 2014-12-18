@@ -82,9 +82,7 @@ game.prototype.setup = function()
     this.create_box2d_world();
     
     //lower slab
-    this.game_objects.push(new wall({x : w/2 - 3.5, y: 1, width : 2, height:1, game : this}));
-    this.game_objects.push(new wall({x : w/2 , y: 1, width : 2, height:1, game : this}));
-    this.game_objects.push(new wall({x : w/2 + 3.5, y: 1, width : 2, height:1, game : this}));
+    this.game_objects.push(new wall({x : w/2 , y: 0.5, width : 100, height: 1, game : this}));
     
     //the player
     this.player = new player({x : w/2, y: h/2 , game : this});
@@ -135,13 +133,12 @@ game.prototype.redraw_world = function()
     var w = this.screen_width;
     var h = this.screen_height;
     
-    var img = img_res('orange_hills.png');
+    var img = img_res('moon.png');
     this.ctx.drawImage(img, 0 , 0 , this.canvas_width, this.canvas_height);
     
-    img = img_res('tree.png');
-    this.ctx.drawImage(img,  (w/2 - 4.5) * this.scale , h/2 , 10 * this.scale, this.canvas_height);
     
-    write_text({x : 25 , y : 25 , font : 'bold 15px arial' , color : '#fff' , text : 'Fruits ' + this.points , ctx : this.ctx})
+    
+    write_text({x : 25 , y : 25 , font : 'bold 15px arial' , color : '#fff' , text : 'Paskaa ' + this.points , ctx : this.ctx})
     
     //Draw each object one by one , the tiles , the cars , the other objects lying here and there
     for(var i in this.game_objects)
@@ -388,7 +385,7 @@ apple.prototype.destroy = function()
 function player(options)
 {
     this.height = 1.0;
-    this.width = 0.66;
+    this.width = 1;
     
     this.x = options.x;
     this.y = options.y;
@@ -465,7 +462,7 @@ player.prototype.add_velocity = function(vel)
     b.SetLinearVelocity(v);
 }
 
-player.img = img_res('monkey.png');
+player.img = img_res('actionmiddle.png');
 
 player.prototype.draw = function()
 {
@@ -557,6 +554,8 @@ wall.prototype.draw = function()
     var width = 1.0 * scale;
     var height = 1.0 * scale;
     
+
+    /*
     for(var i = x1 ; i < x2; i++)
     {
         for(var j = y1; j > y2; j--)
@@ -565,5 +564,5 @@ wall.prototype.draw = function()
             var c = this.game.get_offset(new b2Vec2(i,j));
             this.game.ctx.drawImage(wall.img , c.x * scale, c.y * scale, width, height);
         }
-    }
+    } */
 }
