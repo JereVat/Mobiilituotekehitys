@@ -141,6 +141,8 @@ game.prototype.redraw_world = function()
     
     var img = img_res('moon.png');
     this.ctx.drawImage(img, 0 , 0 , this.canvas_width, this.canvas_height);
+
+    write_text({x : 25 , y : 25 , font : 'bold 15px arial' , color : '#fff' , text : 'Plowed: ' + this.points , ctx : this.ctx})
     
     //Draw each object one by one , the tiles , the cars , the other objects lying here and there
     for(var i in this.game_objects)
@@ -149,6 +151,17 @@ game.prototype.redraw_world = function()
     }
 }
 
+function time(){
+    var x = 0;
+
+    for (var i = 120; i >= 0; i--) {
+        i = x;
+    };
+
+    return x;
+}
+
+// Modify the rain
 game.prototype.tick = function(cnt)
 {
     if(!this.is_paused && this.on)
@@ -156,7 +169,7 @@ game.prototype.tick = function(cnt)
         this.time_elapsed += 1;
         
         //create a random fruit on top
-        if(this.time_elapsed % 10 == 0)
+        if(this.time_elapsed % 30 == 0)
         {
             var xc = Math.random() * 30 + this.screen_width/2 - 10 ;
             var yc = this.screen_height/2 + 4.5;
@@ -370,7 +383,15 @@ apple.prototype.tick = function()
 //Destroy the apple when player eats it
 apple.prototype.destroy = function()
 {
-  
+    /*
+    if(this.body == null)
+    {
+        return;
+    }
+    this.body.GetWorld().DestroyBody( this.body );
+    this.body = null;
+    this.dead = true;
+    */
 }
 
 /*
@@ -381,7 +402,7 @@ apple.prototype.destroy = function()
 function player(options)
 {
     this.height = 1.0;
-    this.width = 1;
+    this.width = 0.6;
     
     this.x = options.x;
     this.y = options.y;
@@ -429,7 +450,7 @@ player.prototype.tick = function()
     if(this.do_move_up && this.can_move_up)
     {
         
-        this.add_velocity(new b2Vec2(0,6));
+        this.add_velocity(new b2Vec2(0,3));
         this.can_move_up = false;
     }
     
@@ -458,7 +479,9 @@ player.prototype.add_velocity = function(vel)
     b.SetLinearVelocity(v);
 }
 
-player.img = img_res('actionmiddle.png');
+player.imgRight = img_res('plowright.png');
+player.imgLeft = img_res('plowleft.png');
+player.imgStill = img_res('plow.png');
 
 player.prototype.draw = function()
 {
@@ -479,14 +502,21 @@ player.prototype.draw = function()
     var height = this.height * scale;
     
     this.game.ctx.translate(sx, sy);
-    this.game.ctx.drawImage(player.img , -width / 2, -height / 2, width, height);
+    if (this.do_move_left == true) {
+        this.game.ctx.drawImage(player.imgLeft , -width / 2, -height / 2, width, height);
+        
+    }  else if (this.do_move_right == true){
+        this.game.ctx.drawImage(player.imgRight , -width / 2, -height / 2, width, height);
+    } else {
+        this.game.ctx.drawImage(player.imgStill , -width / 2, -height / 2, width, height);
+    }
     this.game.ctx.translate(-sx, -sy);
 }
 
 player.prototype.jump = function()
 {
     //if player is already in vertical motion, then cannot jump
-    if(Math.abs(this.body.GetLinearVelocity().y) > 0.0)
+    if(Math.abs(this.body.GetLinearVelocity().y) > 0)
     {
         return false;
     }
