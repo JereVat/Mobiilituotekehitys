@@ -159,7 +159,7 @@ game.prototype.tick = function(cnt)
         if(this.time_elapsed % 10 == 0)
         {
             var xc = Math.random() * 30 + this.screen_width/2 - 10 ;
-            var yc = this.screen_height/2 + 3.5;
+            var yc = this.screen_height/2 + 4.5;
             
             this.game_objects.push(new apple({x : xc ,y : yc,game:this}));
         }
@@ -310,8 +310,8 @@ game.prototype.destroy_object = function(obj)
 //Apple object
 function apple(options)
 {
-    this.height = 0.25;
-    this.width = 0.25;
+    this.height = 0.20;
+    this.width = 0.20;
     this.x = options.x;
     this.y = options.y;
     
